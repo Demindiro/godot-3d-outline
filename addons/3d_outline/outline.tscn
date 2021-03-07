@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://addons/3d_outline/outline.gd" type="Script" id=1]
+[ext_resource path="res://addons/3d_outline/shaders/outline_blur.shader" type="Shader" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 2 )
+shader_param/size = 10.0
+shader_param/outline_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+albedo_color = Color( 1, 1, 0, 1 )
+
+[sub_resource type="Environment" id=3]
+background_mode = 1
+
+[sub_resource type="World" id=4]
+environment = SubResource( 3 )
+
+[node name="Outline" type="ViewportContainer"]
+process_priority = 1000
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+outline_material = SubResource( 2 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 1024, 600 )
+world = SubResource( 4 )
+handle_input_locally = false
+msaa = 2
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="Viewport"]
