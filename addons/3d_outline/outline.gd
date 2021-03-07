@@ -12,7 +12,8 @@ var nodes := {}
 
 
 func outline_node(node: MeshInstance) -> void:
-	var n := node.duplicate()
+	var n := MeshInstance.new()
+	n.mesh = node.mesh
 	n.material_override = outline_material
 	var e := node.connect("tree_exited", self, "remove_node", [n])
 	assert(e == OK)
